@@ -15,14 +15,17 @@ void doRegister(String restaurantName, Menu menu) {
   send("register", data);
 }
 
-void doAdd(){
-  
+void doDelete(int index) {
+  JSONObject data = new JSONObject();
+  data.put("index", index);
+
+  send("delete", data);
 }
 
-void doDelete(){
-  
+void doAdd() {
 }
 
-void doUpdate(){
-  
+
+
+void doUpdate() {
 }
