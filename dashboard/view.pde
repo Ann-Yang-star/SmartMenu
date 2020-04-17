@@ -31,7 +31,16 @@ class View {
   ScrollableList list;
   int selectedIndex = -1;
 
+  //add view
+  Textfield tfName;
+  Textfield tfPrice;
+  Textfield tfCalories;
+  Toggle tgvegetarian;
+  Button btnAddItem;
+
   View() {
+    cp5.addGroup("all");
+    
     if (hasLocalRestaurant()) {
       toView(ViewType.OrderList);
     } else {
@@ -41,17 +50,86 @@ class View {
 
   void toView(ViewType type) {
     this.type = type;
-
+    
     cp5.remove("all");
     cp5.addGroup("all");
 
     if (type == ViewType.Register) {
-      type = ViewType.Register;
       buildRegisterView();
     } else if (type == ViewType.OrderList) {
-      type = ViewType.OrderList;
       buildMainView();
+    } else if (type == ViewType.Add) {
+      buildAddView();
     }
+  }
+
+  void buildAddView() {
+    float x = topx;
+    float y = topy;
+
+    Textlabel lblAdd = cp5.addTextlabel("addTitle");
+    lblAdd.setText("Add");
+    lblAdd.setPosition(x, y);
+    lblAdd.setSize(300, 50);
+    lblAdd.setFont(fontTitle);
+    lblAdd.setGroup("all");
+
+    x = topx;
+    y += 80;
+    Textlabel lblName = cp5.addTextlabel("nameLabel");
+    lblName.setText("Name: ");
+    lblName.setPosition(x, y);
+    lblName.setSize(250, 30);
+    lblName.setFont(fontLabel);
+    lblName.setGroup("all");
+
+    x += 300;
+    tfName = cp5.addTextfield(" ");
+    tfName.setPosition(x, y);
+    tfName.setSize(200, 35);
+    tfName.setFont(fontLabel);
+    tfName.setGroup("all");
+
+    x = topx;
+    y += 80;
+    Textlabel lblPrice = cp5.addTextlabel("priceLabel");
+    lblPrice.setText("Price: ");
+    lblPrice.setPosition(x, y);
+    lblPrice.setSize(250, 30);
+    lblPrice.setFont(fontLabel);
+    lblPrice.setGroup("all");
+
+    x += 300;
+    tfPrice = cp5.addTextfield("  ");
+    tfPrice.setPosition(x, y);
+    tfPrice.setSize(200, 35);
+    tfPrice.setFont(fontLabel);
+    tfPrice.setGroup("all");
+    
+    x = topx;
+    y += 150;
+    btnAddItem = cp5.addButton("Add Item");
+    btnAddItem.setFont(fontButton);
+    btnAddItem.setSize(220, 30);
+    btnAddItem.setPosition(x, y);
+    btnAddItem.setGroup("all");
+
+    x += 260;
+    btnCancel = cp5.addButton("cancel");
+    btnCancel.setFont(fontButton);
+    btnCancel.setSize(220, 30);
+    btnCancel.setPosition(x, y);
+    btnCancel.setGroup("all");
+
+    x = topx;
+    y += 50;
+    status = cp5.addTextlabel("status");
+    status.setColor(color(255, 0, 0));
+    status.setText("");
+    status.setPosition(x, y);
+    status.setSize(250, 30);
+    status.setFont(fontLabel);
+    status.setGroup("all");
   }
 
   void buildMainView() {
@@ -66,7 +144,7 @@ class View {
     lblRestaurant.setSize(200, 50);
     lblRestaurant.setFont(fontTitle);
     lblRestaurant.setGroup("all");
-    
+
     y += 70;
     Textlabel lblMenu = cp5.addTextlabel("menuTitle");
     lblMenu.setText("Menu");
@@ -137,7 +215,7 @@ class View {
     lblRestaurantName.setGroup("all");
 
     x += 300;
-    tfResturantName = cp5.addTextfield("");
+    tfResturantName = cp5.addTextfield(" ");
     tfResturantName.setPosition(x, y);
     tfResturantName.setSize(200, 35);
     tfResturantName.setFont(fontLabel);
@@ -174,9 +252,9 @@ class View {
     if (type == ViewType.Register) {
     } else if (type == ViewType.OrderList) {
       Restaurant res = loadRestaurant();
-    
+
       lblRestaurant.setText(res.toString());
-      
+
       list.clear();
       selectedIndex = -1;
       for (int i=0; i<menu.size(); i++) {

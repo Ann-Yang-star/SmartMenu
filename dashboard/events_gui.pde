@@ -16,10 +16,14 @@ public void cancel() {
   println("cancel");
   if (view.type == ViewType.Register) {
     if (hasLocalRestaurant()) {
-      view.toView(ViewType.OrderList);
+      //view.toView(ViewType.OrderList);
+      currentView = ViewType.OrderList;
     } else {
       System.exit(0);
     }
+  }else if (view.type == ViewType.Add) {
+      //view.toView(ViewType.OrderList);
+      currentView = ViewType.OrderList;
   }
 }
 
@@ -34,4 +38,9 @@ public void delete() {
   }else{
     doDelete(view.selectedIndex);
   }
+}
+
+public void add() {
+  //view.toView(ViewType.Add);
+  currentView = ViewType.Add;
 }
