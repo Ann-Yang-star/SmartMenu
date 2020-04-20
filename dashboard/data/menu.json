@@ -1,7 +1,7 @@
 [
   {
     "nuts": true,
-	"price": 30,
+    "price": 30,
     "name": "Food1",
     "vegetarian": true,
     "glutenFree": false,
@@ -9,10 +9,18 @@
   },
   {
     "nuts": true,
-	"price": 30,
+    "price": 30,
     "name": "Food3",
     "vegetarian": false,
     "glutenFree": true,
     "calories": 20
+  },
+  {
+    "nuts": false,
+    "price": 1,
+    "name": "1",
+    "vegetarian": false,
+    "glutenFree": false,
+    "calories": 12
   }
 ]

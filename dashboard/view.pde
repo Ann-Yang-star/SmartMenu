@@ -3,6 +3,7 @@
 enum ViewType {
   Register, 
     Add, 
+    Edit,
     OrderList
 }
 
@@ -27,7 +28,7 @@ class View {
 
   //main view
   Textlabel lblRestaurant;
-  Button btnAdd, btnEdit, btnDelete;
+  Button btnAdd, btnEdit, btnDelete, btnNewRestaurant;
   ScrollableList list;
   int selectedIndex = -1;
 
@@ -35,7 +36,7 @@ class View {
   Textfield tfName;
   Textfield tfPrice;
   Textfield tfCalories;
-  Toggle tgvegetarian;
+  Toggle tglVegetarian, tglGlutenFree, tglNuts;
   Button btnAddItem;
 
   View() {
@@ -59,16 +60,25 @@ class View {
     } else if (type == ViewType.OrderList) {
       buildMainView();
     } else if (type == ViewType.Add) {
-      buildAddView();
+      buildAddView(false);
+    }else if (type == ViewType.Edit) {
+      buildAddView(true);
+      Food f = menu.get(selectedIndex);
+      tfName.setText(f.name);
+      tfPrice.setText(f.price+"");
+      tfCalories.setText(f.calories+"");
+      tglVegetarian.setState(f.vegetarian);
+      tglGlutenFree.setState(f.glutenFree);
+      tglNuts.setState(f.nuts);
     }
   }
 
-  void buildAddView() {
+  void buildAddView(boolean edit) {
     float x = topx;
     float y = topy;
 
     Textlabel lblAdd = cp5.addTextlabel("addTitle");
-    lblAdd.setText("Add");
+    lblAdd.setText(edit ? "Edit" : "Add");
     lblAdd.setPosition(x, y);
     lblAdd.setSize(300, 50);
     lblAdd.setFont(fontTitle);
@@ -91,7 +101,7 @@ class View {
     tfName.setGroup("all");
 
     x = topx;
-    y += 80;
+    y += 50;
     Textlabel lblPrice = cp5.addTextlabel("priceLabel");
     lblPrice.setText("Price: ");
     lblPrice.setPosition(x, y);
@@ -107,8 +117,74 @@ class View {
     tfPrice.setGroup("all");
     
     x = topx;
+    y += 50;
+    Textlabel lblCalories = cp5.addTextlabel("caloriesLabel");
+    lblCalories.setText("Calories: ");
+    lblCalories.setPosition(x, y);
+    lblCalories.setSize(250, 30);
+    lblCalories.setFont(fontLabel);
+    lblCalories.setGroup("all");
+
+    x += 300;
+    tfCalories = cp5.addTextfield("   ");
+    tfCalories.setPosition(x, y);
+    tfCalories.setSize(200, 35);
+    tfCalories.setFont(fontLabel);
+    tfCalories.setGroup("all");
+    
+    
+    x = topx;
+    y += 50;
+    Textlabel lblVegetarian = cp5.addTextlabel("VegetarianLabel");
+    lblVegetarian.setText("Vegetarian: ");
+    lblVegetarian.setPosition(x, y);
+    lblVegetarian.setSize(250, 30);
+    lblVegetarian.setFont(fontLabel);
+    lblVegetarian.setGroup("all");
+
+    x += 300;
+    tglVegetarian = cp5.addToggle("    ");
+    tglVegetarian.setPosition(x, y);
+    tglVegetarian.setSize(200, 35);
+    tglVegetarian.setFont(fontLabel);
+    tglVegetarian.setGroup("all");
+
+    x = topx;
+    y += 50;
+    Textlabel lblGlutenFree = cp5.addTextlabel("GlutenFreeLabel");
+    lblGlutenFree.setText("GlutenFree: ");
+    lblGlutenFree.setPosition(x, y);
+    lblGlutenFree.setSize(250, 30);
+    lblGlutenFree.setFont(fontLabel);
+    lblGlutenFree.setGroup("all");
+
+    x += 300;
+    tglGlutenFree = cp5.addToggle("     ");
+    tglGlutenFree.setPosition(x, y);
+    tglGlutenFree.setSize(200, 35);
+    tglGlutenFree.setFont(fontLabel);
+    tglGlutenFree.setGroup("all");
+    
+    
+   x = topx;
+    y += 50;
+    Textlabel lblNuts = cp5.addTextlabel("NutsLabel");
+    lblNuts.setText("GlutenFree: ");
+    lblNuts.setPosition(x, y);
+    lblNuts.setSize(250, 30);
+    lblNuts.setFont(fontLabel);
+    lblNuts.setGroup("all");
+
+    x += 300;
+    tglNuts = cp5.addToggle("      ");
+    tglNuts.setPosition(x, y);
+    tglNuts.setSize(200, 35);
+    tglNuts.setFont(fontLabel);
+    tglNuts.setGroup("all");
+    
+    x = topx;
     y += 150;
-    btnAddItem = cp5.addButton("Add Item");
+    btnAddItem = cp5.addButton(edit? "edit_item" : "add_item");
     btnAddItem.setFont(fontButton);
     btnAddItem.setSize(220, 30);
     btnAddItem.setPosition(x, y);
@@ -141,7 +217,7 @@ class View {
 
     lblRestaurant = cp5.addTextlabel("restaurantName");
     lblRestaurant.setPosition(x, y);
-    lblRestaurant.setSize(200, 50);
+    lblRestaurant.setSize(150, 50);
     lblRestaurant.setFont(fontTitle);
     lblRestaurant.setGroup("all");
 
@@ -153,26 +229,34 @@ class View {
     lblMenu.setFont(fontTitle);
     lblMenu.setGroup("all");
 
-    x += 200;
+    x += 150;
     btnAdd = cp5.addButton("add");
     btnAdd.setFont(fontTitle);
-    btnAdd.setSize(150, 40);
+    btnAdd.setSize(120, 40);
     btnAdd.setPosition(x, y);
     btnAdd.setGroup("all");
 
-    x += 180;
+    x += 140;
     btnEdit = cp5.addButton("edit");
     btnEdit.setFont(fontTitle);
-    btnEdit.setSize(150, 40);
+    btnEdit.setSize(120, 40);
     btnEdit.setPosition(x, y);
     btnEdit.setGroup("all");
 
-    x += 180;
+    x += 140;
     btnDelete = cp5.addButton("delete");
     btnDelete.setFont(fontTitle);
-    btnDelete.setSize(200, 40);
+    btnDelete.setSize(190, 40);
     btnDelete.setPosition(x, y);
     btnDelete.setGroup("all");
+
+    x += 210;
+    btnNewRestaurant = cp5.addButton("new_res");
+    btnNewRestaurant.setFont(fontTitle);
+    btnNewRestaurant.setSize(200, 40);
+    btnNewRestaurant.setPosition(x, y);
+    btnNewRestaurant.setGroup("all");
+
 
     x = topx;
     y += 100;

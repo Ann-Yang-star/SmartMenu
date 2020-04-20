@@ -12,7 +12,11 @@ void doRegister(String restaurantName, Menu menu) {
   data.put("name", restaurantName);
   data.put("menu", menu.toJson());
 
-  send("register", data);
+  JSONObject request = new JSONObject();
+  request.put("action", "register");
+  request.put("data", data);
+
+  client.publish(MQTT_topic_web, request.toString());
 }
 
 void doDelete(int index) {
@@ -22,10 +26,17 @@ void doDelete(int index) {
   send("delete", data);
 }
 
-void doAdd() {
+void doAdd(Food f) {
+  JSONObject data = new JSONObject();
+  data.put("food", f.toJson());
+
+  send("add", data);
 }
 
+void doUpdate(int index, Food f) {
+  JSONObject data = new JSONObject();
+  data.put("index", index);
+  data.put("food", f.toJson());
 
-
-void doUpdate() {
+  send("update", data);
 }

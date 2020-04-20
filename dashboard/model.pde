@@ -101,6 +101,10 @@ class Menu {
     return foods[index];
   }
   
+  void set(int index, Food f){
+     foods[index] = f; 
+  }
+  
   int size(){
     return foods.length;
   }
