@@ -8,13 +8,18 @@ void send(String action, JSONObject jb) {
 }
 
 void doRegister(String restaurantName, Menu menu) {
-  JSONObject data = new JSONObject();
-  data.put("name", restaurantName);
-  data.put("menu", menu.toJson());
+  JSONObject restaurantSingle = new JSONObject();
+  restaurantSingle.put("resID", "");
+  restaurantSingle.put("resName", restaurantName);
+  restaurantSingle.put("menuSize", menu.size());
+  restaurantSingle.put("menu", menu.toJson());
 
   JSONObject request = new JSONObject();
-  request.put("action", "register");
-  request.put("data", data);
+  request.put("conID", (int)random(1, 1000));
+  request.put("queryID", 30);
+  request.put("listSize", 0);
+  request.put("resList", new JSONArray());
+  request.put("restaurantSingle", restaurantSingle);
 
   client.publish(MQTT_topic_web, request.toString());
 }

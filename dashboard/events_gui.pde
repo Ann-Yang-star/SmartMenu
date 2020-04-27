@@ -68,13 +68,12 @@ public void add_item() {
       return;
     }
 
-    int price = Integer.parseInt(view.tfPrice.getText());
     int calories = Integer.parseInt(view.tfCalories.getText());
     boolean v = view.tglVegetarian.getBooleanValue();
     boolean g = view.tglGlutenFree.getBooleanValue();
     boolean nuts = view.tglNuts.getBooleanValue();
 
-    Food f = new Food(name, price, calories, v, g, nuts);
+    Food f = new Food(name, calories, v, g, nuts);
 
     doAdd(f);
   }
@@ -93,13 +92,12 @@ public void edit_item() {
       return;
     }
 
-    int price = Integer.parseInt(view.tfPrice.getText());
     int calories = Integer.parseInt(view.tfCalories.getText());
     boolean v = view.tglVegetarian.getBooleanValue();
     boolean g = view.tglGlutenFree.getBooleanValue();
     boolean nuts = view.tglNuts.getBooleanValue();
 
-    Food f = new Food(name, price, calories, v, g, nuts);
+    Food f = new Food(name, calories, v, g, nuts);
 
     doUpdate(view.selectedIndex, f);
   }

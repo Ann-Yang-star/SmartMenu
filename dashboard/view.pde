@@ -34,7 +34,6 @@ class View {
 
   //add view
   Textfield tfName;
-  Textfield tfPrice;
   Textfield tfCalories;
   Toggle tglVegetarian, tglGlutenFree, tglNuts;
   Button btnAddItem;
@@ -65,7 +64,6 @@ class View {
       buildAddView(true);
       Food f = menu.get(selectedIndex);
       tfName.setText(f.name);
-      tfPrice.setText(f.price+"");
       tfCalories.setText(f.calories+"");
       tglVegetarian.setState(f.vegetarian);
       tglGlutenFree.setState(f.glutenFree);
@@ -100,22 +98,6 @@ class View {
     tfName.setFont(fontLabel);
     tfName.setGroup("all");
 
-    x = topx;
-    y += 50;
-    Textlabel lblPrice = cp5.addTextlabel("priceLabel");
-    lblPrice.setText("Price: ");
-    lblPrice.setPosition(x, y);
-    lblPrice.setSize(250, 30);
-    lblPrice.setFont(fontLabel);
-    lblPrice.setGroup("all");
-
-    x += 300;
-    tfPrice = cp5.addTextfield("  ");
-    tfPrice.setPosition(x, y);
-    tfPrice.setSize(200, 35);
-    tfPrice.setFont(fontLabel);
-    tfPrice.setGroup("all");
-    
     x = topx;
     y += 50;
     Textlabel lblCalories = cp5.addTextlabel("caloriesLabel");

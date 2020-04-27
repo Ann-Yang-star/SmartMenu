@@ -27,15 +27,13 @@ class Restaurant {
 
 class Food {
   String name;
-  int price;
   int calories;
   boolean vegetarian;
   boolean glutenFree;
   boolean nuts;
 
-  Food(String name, int price, int calories,  boolean vegetarian, boolean glutenFree, boolean nuts) {
+  Food(String name, int calories,  boolean vegetarian, boolean glutenFree, boolean nuts) {
     this.name = name;
-    this.price = price;
     this.calories = calories;
     this.vegetarian = vegetarian;
     this.glutenFree = glutenFree;
@@ -43,27 +41,25 @@ class Food {
   }
   
   String toString(){
-    return String.format("%s, price: $%d, Calories: %d, vegetarian: %s, *Gluten-free: %s, Nuts: %s", name, price, calories, 
+    return String.format("%s, Calories: %d, vegetarian: %s, *Gluten-free: %s, Nuts: %s", name, calories, 
       vegetarian?"Y":"N", glutenFree?"Y":"N", nuts?"Y":"N");
   }
   
   Food(JSONObject jb) {
-    name = jb.getString("name");
-    price = jb.getInt("price");
+    name = jb.getString("foodName");
     calories = jb.getInt("calories");
-    vegetarian = jb.getBoolean("vegetarian");
-    glutenFree = jb.getBoolean("glutenFree");
-    nuts = jb.getBoolean("nuts");
+    vegetarian = jb.getBoolean("vegan");
+    glutenFree = jb.getBoolean("containsGluten");
+    nuts = jb.getBoolean("containsNuts");
   }
 
   JSONObject toJson() {
     JSONObject json = new JSONObject();
-    json.put("name", name);
-    json.put("price", price);
+    json.put("foodName", name);
     json.put("calories", calories);
-    json.put("vegetarian", vegetarian);
-    json.put("glutenFree", glutenFree);
-    json.put("nuts", nuts);
+    json.put("vegan", vegetarian);
+    json.put("containsGluten", glutenFree);
+    json.put("containsNuts", nuts);
     return json;
   }
 }
